@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+emails.db
+
+# Node/React
+node_modules/
+.next/
+.env.local
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
