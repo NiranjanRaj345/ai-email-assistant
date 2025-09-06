@@ -60,6 +60,7 @@ cd ai-email-assistant
 
 ```bash
 cp .env.example .env
+```
 - Copy `.env.example` to `.env` and fill in your API keys (OpenAI, OpenRouter, Hugging Face, Anthropic, Gemini, etc.).
 
 ### 3. Backend Setup
