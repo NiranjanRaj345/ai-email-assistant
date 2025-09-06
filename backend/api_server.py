@@ -1,6 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field, ValidationError
-from ai_email_assistant.email_db import fetch_emails, insert_email, init_db
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+from backend.email_db import fetch_emails, insert_email, init_db
 from typing import List, Dict
 import logging
 
