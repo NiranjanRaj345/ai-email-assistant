@@ -1,10 +1,12 @@
 import sqlite3
+import os
 from typing import Dict, Any, List
 
 DB_PATH = "ai_email_assistant/emails.db"
 
 def init_db():
     try:
+        os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
         conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
         c.execute("""

@@ -4,3 +4,4 @@ uvicorn
 transformers
 openai
 python-dotenv
+itsdangerous

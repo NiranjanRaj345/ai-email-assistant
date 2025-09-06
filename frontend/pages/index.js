@@ -2,26 +2,40 @@ import React, { useEffect, useState } from "react";
 import MainLayout from "../components/MainLayout";
 import AnalyticsGraph from "../components/AnalyticsGraph";
 
+import { useRouter } from "next/router";
+
 export default function Dashboard() {
-  const [emails, setEmails] = useState([]);
-  const [analytics, setAnalytics] = useState({});
-  const [loadingEmails, setLoadingEmails] = useState(true);
-  const [loadingAnalytics, setLoadingAnalytics] = useState(true);
-  const [search, setSearch] = useState("");
+    const router = useRouter();
+    const [emails, setEmails] = useState([]);
+    const [analytics, setAnalytics] = useState({});
+    const [loadingEmails, setLoadingEmails] = useState(true);
+    const [loadingAnalytics, setLoadingAnalytics] = useState(true);
+    const [search, setSearch] = useState("");
+    const [authChecked, setAuthChecked] = useState(false);
+
+    // Removed duplicate useEffect. All requests now use credentials: "include" for session cookies.
 
   useEffect(() => {
     setLoadingEmails(true);
-    fetch("/api/emails")
+    fetch("http://localhost:8000/emails", { credentials: "include" })
       .then(res => res.json())
       .then(data => {
-        setEmails(data);
+        setEmails(Array.isArray(data) ? data : []);
+        setLoadingEmails(false);
+      })
+      .catch(() => {
+        setEmails([]);
         setLoadingEmails(false);
       });
     setLoadingAnalytics(true);
-    fetch("/api/analytics")
+    fetch("http://localhost:8000/analytics", { credentials: "include" })
       .then(res => res.json())
       .then(data => {
         setAnalytics(data);
+        setLoadingAnalytics(false);
+      })
+      .catch(() => {
+        setAnalytics({});
         setLoadingAnalytics(false);
       });
   }, []);

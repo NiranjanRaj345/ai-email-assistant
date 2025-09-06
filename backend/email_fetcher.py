@@ -19,7 +19,7 @@ def connect_imap(username: str, password: str):
 def fetch_support_emails(mail, mailbox="INBOX") -> List[Dict]:
     try:
         mail.select(mailbox)
-        status, messages = mail.search(None, '(UNSEEN)')
+        status, messages = mail.search(None, 'ALL')
         email_ids = messages[0].split()
         filtered_emails = []
         for eid in email_ids:
@@ -31,25 +31,26 @@ def fetch_support_emails(mail, mailbox="INBOX") -> List[Dict]:
                         subject, encoding = decode_header(msg["Subject"])[0]
                         if isinstance(subject, bytes):
                             subject = subject.decode(encoding if encoding else "utf-8")
-                        if any(term in subject.lower() for term in ["support", "query", "request", "help"]):
-                            sender = msg.get("From")
-                            date = msg.get("Date")
-                            body = ""
-                            if msg.is_multipart():
-                                for part in msg.walk():
-                                    if part.get_content_type() == "text/plain":
-                                        body = part.get_payload(decode=True).decode(errors="ignore")
-                                        break
-                            else:
-                                body = msg.get_payload(decode=True).decode(errors="ignore")
-                            filtered_emails.append({
-                                "sender": sender,
-                                "subject": subject,
-                                "body": body,
-                                "date": date
-                            })
+                        sender = msg.get("From")
+                        date = msg.get("Date")
+                        body = ""
+                        if msg.is_multipart():
+                            for part in msg.walk():
+                                if part.get_content_type() == "text/plain":
+                                    body = part.get_payload(decode=True).decode(errors="ignore")
+                                    break
+                        else:
+                            body = msg.get_payload(decode=True).decode(errors="ignore")
+                        filtered_emails.append({
+                            "sender": sender,
+                            "subject": subject,
+                            "body": body,
+                            "date": date
+                        })
                     except Exception as e:
                         continue
         return filtered_emails
     except Exception as e:
+        import traceback
+        print("Email fetching failed:", traceback.format_exc())
         raise RuntimeError(f"Email fetching failed: {e}")
