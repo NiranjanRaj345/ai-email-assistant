@@ -1,6 +1,6 @@
 fastapi
 uvicorn
-sqlite3
+# sqlite3 is part of the Python standard library and should not be listed here.
 transformers
 openai
 python-dotenv

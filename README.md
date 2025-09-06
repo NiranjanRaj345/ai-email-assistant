@@ -96,9 +96,9 @@ cd ai-email-assistant
 
 ```bash
 cd backend
-pip install -r requirements.txt
-uvicorn api_server:app --reload
+bash install_backend.sh
 ```
+This script will automatically install all dependencies and start the FastAPI server.
 
 ### 4. Frontend Setup
 
