@@ -58,10 +58,39 @@ cd ai-email-assistant
 
 ### 2. Configure Environment Variables
 
-```bash
-cp .env.example .env
-```
-- Copy `.env.example` to `.env` and fill in your API keys (OpenAI, OpenRouter, Hugging Face, Anthropic, Gemini, etc.).
+
+#### Step 1: Copy `.env.example` to `.env`
+
+- **Linux/macOS:**
+  ```bash
+  cp .env.example .env
+  ```
+- **Windows (Command Prompt):**
+  ```cmd
+  copy .env.example .env
+  ```
+- **Windows (PowerShell):**
+  ```powershell
+  Copy-Item .env.example .env
+  ```
+
+#### Step 2: Edit `.env` to add your API keys
+
+- Open `.env` in your preferred editor:
+  - **Terminal (Linux/macOS):** `nano .env` or `vim .env`
+  - **Terminal (Windows):** `notepad .env`
+  - **VSCode:** Open `.env` from the file explorer
+
+- Add your API keys for each provider:
+  - `OPENAI_API_KEY`
+  - `OPENROUTER_API_KEY`
+  - `HUGGINGFACE_API_KEY`
+  - `ANTHROPIC_API_KEY`
+  - `GEMINI_API_KEY`
+
+- You can obtain these keys from your accounts on each provider's website.
+
+- The `.env` file is required for backend to connect to LLMs and for secure session management.
 
 ### 3. Backend Setup
 
